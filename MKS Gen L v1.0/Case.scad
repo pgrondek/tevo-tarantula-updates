@@ -14,10 +14,8 @@ screw_size = height - thickness; // 10;
 // 
 $fn = 100;
 
-//bottom_part();
-
 top_part();
-
+bottom_part();
 
 module bottom_part() {
     union() {
@@ -38,14 +36,19 @@ module top_part() {
         translate([0, 0, height - thickness])
             cube([x, y, thickness]);
 
+        // screw cutoffs
         screw_cutoff();
-
         translate([x - 8, 0, 0])
             screw_cutoff();
         translate([0, y - 8, 0])
             screw_cutoff();
         translate([x - 8, y - 8, 0])
             screw_cutoff();
+
+        // grill
+        for (i = [0 : 5])
+        translate([40 + (6 * i), depth / 2.2, height - thickness * 1.5])
+            grill();
     }
 }
 
@@ -160,4 +163,13 @@ module screw_cutoff() {
         cylinder(h = 2, d1 = 3, d2 = 6);
     translate([d, d, h - 2])
         cylinder(h = 2, d = 3);
+}
+
+module grill() {
+    d = 3;
+    hull() {
+        cylinder(h = thickness * 2, d = d);
+        translate([0, 30, 0])
+            cylinder(h = thickness * 2, d = d);
+    }
 }
