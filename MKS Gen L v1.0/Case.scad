@@ -96,8 +96,7 @@ module base() {
     y = depth + 2 * spacing;
 
     cube([x, y, thickness]);
-    translate([4 + spacing, 4 + spacing, thickness])
-        peg(h = thickness);
+    transeg(h = thickness);
     translate([x - (4 + spacing), 4 + spacing, thickness])
         peg(h = thickness);
     translate([x - (4 + spacing), y - (4 + spacing), thickness])
@@ -111,26 +110,27 @@ module walls() {
         walls_basic();
 
         // power ports
-        translate([0, 0, thickness + pcb_thickness]) {
+        translate([0, spacing, thickness + pcb_thickness]) {
             translate([- spacing * 1.5, 9, 5])
                 cube([spacing * 2, 10.5, 13]);
             translate([- spacing * 1.5, 21, 5])
                 cube([spacing * 2, 10.5, 13]);
-            translate([- spacing * 1.5, 32, 5])
+            translate([- spacing * 1.5, 33, 5])
                 cube([spacing * 2, 21, 6]);
         }
 
         // usb
-        translate([0, 0, thickness + pcb_thickness]) {
+        translate([spacing, 0, thickness + pcb_thickness]) {
             translate([21, - spacing * 1.5, 5])
                 cube([12, spacing * 2, 11]);
         }
 
         // holes for mounts
-        translate([30, depth + thickness * 3.5, thickness + 10])
+        translate([30, depth + thickness + spacing *2.1, thickness + 10])
             rotate([90, 0, 0])
                 cylinder(h = thickness * 2, d = 3);
-        translate([width - 30, depth + thickness * 3.5, thickness + 10])
+        
+        translate([width + spacing *2 - 30, depth + thickness + spacing *2.1, thickness + 10])
             rotate([90, 0, 0])
                 cylinder(h = thickness * 2, d = 3);
     }
