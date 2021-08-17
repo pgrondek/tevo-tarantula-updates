@@ -49,10 +49,10 @@ module top_part() {
         for (i = [0 : 5])
         translate([40 + (6 * i), depth / 2.2, height - thickness * 1.5])
             grill();
-        
+
         // part cutoff
-        translate([8,7,height-thickness *1.5])
-            cube([8,24, thickness *2]);
+        translate([8, 7, height - thickness * 1.5])
+            cube([8, 24, thickness * 2]);
     }
 }
 
@@ -100,7 +100,8 @@ module base() {
     y = depth + 2 * spacing;
 
     cube([x, y, thickness]);
-    transeg(h = thickness);
+    translate([4 + spacing, 4 + spacing, thickness])
+        peg(h = thickness);
     translate([x - (4 + spacing), 4 + spacing, thickness])
         peg(h = thickness);
     translate([x - (4 + spacing), y - (4 + spacing), thickness])
@@ -130,11 +131,11 @@ module walls() {
         }
 
         // holes for mounts
-        translate([30, depth + thickness + spacing *2.1, thickness + 10])
+        translate([30, depth + thickness + spacing * 2.1, thickness + 10])
             rotate([90, 0, 0])
                 cylinder(h = thickness * 2, d = 3);
-        
-        translate([width + spacing *2 - 30, depth + thickness + spacing *2.1, thickness + 10])
+
+        translate([width + spacing * 2 - 30, depth + thickness + spacing * 2.1, thickness + 10])
             rotate([90, 0, 0])
                 cylinder(h = thickness * 2, d = 3);
     }
