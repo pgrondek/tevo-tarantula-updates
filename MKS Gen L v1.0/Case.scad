@@ -49,6 +49,10 @@ module top_part() {
         for (i = [0 : 5])
         translate([40 + (6 * i), depth / 2.2, height - thickness * 1.5])
             grill();
+        
+        // part cutoff
+        translate([8,7,height-thickness *1.5])
+            cube([8,24, thickness *2]);
     }
 }
 
@@ -160,7 +164,7 @@ module screw_cutoff() {
     h = height - thickness + 2;
 
     translate([d, d, h])
-        cylinder(h = 2, d1 = 3, d2 = 6);
+        cylinder(h = 2, d1 = 3, d2 = 9);
     translate([d, d, h - 2])
         cylinder(h = 2, d = 3);
 }
