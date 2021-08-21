@@ -74,21 +74,40 @@ module fan_mount() {
     translate([30 - (1.5 + 1.5), 30 - (1.5 + 1.5), 10])
         cylinder(d = 3, h = 5);
 
-    // square nuts holes
-    translate([0, 0, 12])
-        cube([6, 6, 2.5]);
-
-    translate([30 - 6, 0, 12])
-        cube([6, 6, 2.5]);
-
-    translate([0, 30 - 6, 12])
-        cube([6, 6, 2.5]);
-
-    translate([30 - 6, 30 - 6, 12])
-        cube([6, 6, 2.5]);
-
     // fan duct
     translate([1, 1, 0])
         translate([14, 14, 0])
             cylinder(d1 = 28, d2 = 22, h = 25);
+}
+
+module screw_mounts() {
+    translate([1.5, 24, 29])
+        rotate([90, 0, 0])
+            screw_mount(length = 17, nut_size = 6, screw_size = 3, nut = "square");
+
+    translate([25.5, 24, 29])
+        rotate([90, 0, 0])
+            screw_mount(length = 17, nut_size = 6, screw_size = 3, nut = "square");
+
+    translate([2, 15, 35])
+        rotate([90, 0, 0])
+            screw_mount(length = 20, nut_size = 6, screw_size = 3, nut = "none");
+
+    translate([25, 15, 35])
+        rotate([90, 0, 0])
+            screw_mount(length = 20, nut_size = 6, screw_size = 3, nut = "none");
+}
+
+module screw_mount(length, nut_size, screw_size, nut = "none") {
+    translate([screw_size / 2, screw_size / 2, 0]) {
+        cylinder(d = screw_size + 3, h = screw_size);
+        cylinder(d = screw_size, h = length);
+        if (nut == "hexagon") {
+            translate([0, 0, length - 3])
+                cylinder(d = nut_size, h = 3, $fn = 6);
+        } else if (nut == "square") {
+            translate([- nut_size / 2, - nut_size / 2, length - 3])
+                cube([nut_size, nut_size, 3]);
+        }
+    }
 }
