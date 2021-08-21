@@ -1,20 +1,29 @@
 $fn = 100;
 
+part = "cover";
+
 //translate([4,4,0])
 //    translate([11,11,0])
 //        e3d_v6();
 
-//color("red"){
-//    translate([40,0,0])
-//        rotate([0,-90,0])
-//            fan_mount();
-//}
+color("red") {
+    //    translate([25,15,35])
+    //            rotate([90,0,0])
+    //                screw_mount(length=20, nut_size=6, screw_size=3, nut = "square");
+
+    //    screw_mounts();
+}
 
 color("green") {
     difference() {
         // part
-        translate([0, 0, 0])
-            cube([30, 15, 42.5]);
+        if (part == "mount") {
+            translate([0, 0, 0])
+                cube([30, 15, 42.5]);
+        } else if (part == "cover") {
+            translate([0, 15, 0])
+                cube([30, 15, 39]);
+        }
 
         // space for fan mount
         translate([40, 0, 0])
@@ -25,6 +34,7 @@ color("green") {
         translate([4, 4, 0])
             translate([11, 11, 0])
                 e3d_v6();
+        screw_mounts();
     }
 }
 
@@ -71,9 +81,6 @@ module fan_mount() {
     translate([1.5 + 1.5, 30 - (1.5 + 1.5), 10])
         cylinder(d = 3, h = 5);
 
-    translate([30 - (1.5 + 1.5), 30 - (1.5 + 1.5), 10])
-        cylinder(d = 3, h = 5);
-
     // fan duct
     translate([1, 1, 0])
         translate([14, 14, 0])
@@ -81,14 +88,22 @@ module fan_mount() {
 }
 
 module screw_mounts() {
+    // cover mount
     translate([1.5, 24, 29])
-        rotate([90, 0, 0])
+        rotate([90, 0, 0]) {
             screw_mount(length = 17, nut_size = 6, screw_size = 3, nut = "square");
+            translate([1.5, 1.5, - 20])
+                cylinder(d = 6, h = 20);
+        }
 
     translate([25.5, 24, 29])
-        rotate([90, 0, 0])
+        rotate([90, 0, 0]) {
             screw_mount(length = 17, nut_size = 6, screw_size = 3, nut = "square");
+            translate([1.5, 1.5, - 20])
+                cylinder(d = 6, h = 20);
+        }
 
+    // X carriage mount
     translate([2, 15, 35])
         rotate([90, 0, 0])
             screw_mount(length = 20, nut_size = 6, screw_size = 3, nut = "none");
