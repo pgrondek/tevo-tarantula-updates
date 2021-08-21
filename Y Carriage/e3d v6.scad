@@ -1,6 +1,6 @@
 $fn = 100;
 
-part = "cover";
+part = "mount";
 
 //translate([4,4,0])
 //    translate([11,11,0])
@@ -34,6 +34,7 @@ color("green") {
         translate([4, 4, 0])
             translate([11, 11, 0])
                 e3d_v6();
+
         screw_mounts();
     }
 }
@@ -85,6 +86,10 @@ module fan_mount() {
     translate([1, 1, 0])
         translate([14, 14, 0])
             cylinder(d1 = 28, d2 = 22, h = 25);
+
+    translate([1, 1, 0])
+        translate([14, 14, 20])
+            cylinder(d = 22, h = 25);
 }
 
 module screw_mounts() {
