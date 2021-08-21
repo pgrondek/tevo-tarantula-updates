@@ -1,17 +1,9 @@
 $fn = 100;
 
-part = "mount";
-
-//translate([4,4,0])
-//    translate([11,11,0])
-//        e3d_v6();
+part = "cover";
 
 color("red") {
-    //    translate([25,15,35])
-    //            rotate([90,0,0])
-    //                screw_mount(length=20, nut_size=6, screw_size=3, nut = "square");
 
-    //    screw_mounts();
 }
 
 color("green") {
@@ -22,7 +14,13 @@ color("green") {
                 cube([30, 15, 42.5]);
         } else if (part == "cover") {
             translate([0, 15, 0])
-                cube([30, 15, 39]);
+                cube([30, 15, 42.5]);
+            translate([26, 27, - 6])
+                cube([6, 3, 6]);
+
+            translate([20.2146, 27, 0.895])
+                rotate([0, 50, 0])
+                    cube([9, 3, 6]);
         }
 
         // space for fan mount
@@ -36,13 +34,26 @@ color("green") {
                 e3d_v6();
 
         screw_mounts();
+
+
+        // hole for part cooling fan
+        translate([20, 30, 35])
+            rotate([90, 0, 0])
+                translate([1.5, 1.5, 0])
+                    cylinder(d = 3, h = 5);
+
+        translate([27.5, 30, - 4.5])
+            rotate([90, 0, 0])
+                translate([1.5, 1.5, 0])
+                    cylinder(d = 4, h = 5);
     }
 }
 
 module e3d_v6() {
     h0 = - 14;
-    translate([- 8, - 3.5, h0])
-        cube([16, 20, 12]);
+    rotate([0, 0, 180])
+        translate([- 8, - 3.5, h0])
+            cube([16, 20, 12]);
 
     h1 = h0 + 12;
     translate([0, 0, h1])
