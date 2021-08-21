@@ -4,51 +4,45 @@ $fn = 100;
 
 part = "cover";
 
-color("red") {
+difference() {
+    // part
+    if (part == "mount") {
+        translate([0, 0, 0])
+            cube([30, 15, 42.5]);
+    } else if (part == "cover") {
+        translate([0, 15, 0])
+            cube([30, 15, 42.5]);
+        translate([26, 27, - 6])
+            cube([6, 3, 6]);
 
-}
-
-color("green") {
-    difference() {
-        // part
-        if (part == "mount") {
-            translate([0, 0, 0])
-                cube([30, 15, 42.5]);
-        } else if (part == "cover") {
-            translate([0, 15, 0])
-                cube([30, 15, 42.5]);
-            translate([26, 27, - 6])
-                cube([6, 3, 6]);
-
-            translate([20.2146, 27, 0.895])
-                rotate([0, 50, 0])
-                    cube([9, 3, 6]);
-        }
-
-        // space for fan mount
-        translate([40, 0, 0])
-            rotate([0, - 90, 0])
-                fan_mount();
-
-        // space for extruder
-        translate([4, 4, 0])
-            translate([11, 11, 0])
-                e3d_v6();
-
-        screw_mounts();
-
-
-        // hole for part cooling fan
-        translate([20, 30, 35])
-            rotate([90, 0, 0])
-                translate([1.5, 1.5, 0])
-                    cylinder(d = 3, h = 5);
-
-        translate([27.5, 30, - 4.5])
-            rotate([90, 0, 0])
-                translate([1.5, 1.5, 0])
-                    cylinder(d = 4, h = 5);
+        translate([20.2146, 27, 0.895])
+            rotate([0, 50, 0])
+                cube([9, 3, 6]);
     }
+
+    // space for fan mount
+    translate([40, 0, 0])
+        rotate([0, - 90, 0])
+            fan_mount();
+
+    // space for extruder
+    translate([4, 4, 0])
+        translate([11, 11, 0])
+            e3d_v6();
+
+    screw_mounts();
+
+
+    // hole for part cooling fan
+    translate([20, 30, 35])
+        rotate([90, 0, 0])
+            translate([1.5, 1.5, 0])
+                cylinder(d = 3, h = 5);
+
+    translate([27.5, 30, - 4.5])
+        rotate([90, 0, 0])
+            translate([1.5, 1.5, 0])
+                cylinder(d = 4, h = 5);
 }
 
 module e3d_v6() {

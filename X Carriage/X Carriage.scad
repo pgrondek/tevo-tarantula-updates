@@ -9,10 +9,6 @@ $fn = 100;
 
 base();
 
-color("green") {
-
-}
-
 module base() {
     difference() {
         union() {
