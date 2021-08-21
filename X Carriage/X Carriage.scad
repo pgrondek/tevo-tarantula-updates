@@ -1,3 +1,5 @@
+include <../lib/common.scad>;
+
 thickness = 6;
 width = 75;
 depth = 64;
@@ -53,14 +55,6 @@ module belt_holes() {
     translate([width - (offset_from_edge + hole_width), (depth - 9) / 2, - 0.1])
         cube([hole_width, hole_depth, thickness + 0.2]);
 
-}
-
-module block_with_fillet(width, depth, height, fillet) {
-    minkowski() {
-        cube([width - (fillet * 2), depth - (fillet * 2), height / 2]);
-        translate([fillet, fillet, 0])
-            cylinder(r = fillet, h = height / 2);
-    }
 }
 
 module mount() {
