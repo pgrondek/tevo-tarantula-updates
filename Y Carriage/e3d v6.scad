@@ -87,4 +87,8 @@ module fan_mount() {
     translate([30 - 6, 30 - 6, 12])
         cube([6, 6, 2.5]);
 
+    // fan duct
+    translate([1, 1, 0])
+        translate([14, 14, 0])
+            cylinder(d1 = 28, d2 = 22, h = 25);
 }
