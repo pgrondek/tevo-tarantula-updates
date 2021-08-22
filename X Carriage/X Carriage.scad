@@ -12,7 +12,8 @@ base();
 module base() {
     difference() {
         union() {
-            block_with_fillet(width, depth, thickness, 10);
+            translate([0, - thickness, 0])
+                block_with_fillet(width, depth + thickness, thickness, 10);
             mount();
         }
         big_holes();
@@ -64,11 +65,11 @@ module mount() {
                 }
 
                 union() {
-                    translate([2.5+ 2, 20, 10])
+                    translate([2.5 + 2, 20, 10])
                         rotate([180, 0, 0])
                             screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon");
 
-                    translate([2.5+25, 20, 10])
+                    translate([2.5 + 25, 20, 10])
                         rotate([180, 0, 0])
                             screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon");
                 }
@@ -96,7 +97,7 @@ module endstop_holes() {
     diameter = 2;
     translate([width - (diameter / 2 + 3), diameter / 2 + 16, - 0.1])
         cylinder(d = diameter, h = thickness * 1.1);
-    
-    translate([width - (diameter / 2 + 3), diameter / 2 + 16 +6, - 0.1])
+
+    translate([width - (diameter / 2 + 3), diameter / 2 + 16 + 6, - 0.1])
         cylinder(d = diameter, h = thickness * 1.1);
 }
