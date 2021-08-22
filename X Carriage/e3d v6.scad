@@ -34,7 +34,7 @@ difference() {
 
 
     // hole for part cooling fan
-    translate([20, 30, 35])
+    translate([20, 30, 37])
         rotate([90, 0, 0])
             translate([1.5, 1.5, 0])
                 cylinder(d = 3, h = 5);
@@ -81,13 +81,13 @@ module fan_mount() {
 
     // screw holes
     translate([1.5 + 1.5, 1.5 + 1.5, 10])
-        cylinder(d = 3, h = 5);
+        cylinder(d = 3, h = 10);
 
     translate([30 - (1.5 + 1.5), 1.5 + 1.5, 10])
-        cylinder(d = 3, h = 5);
+        cylinder(d = 3, h = 10);
 
     translate([1.5 + 1.5, 30 - (1.5 + 1.5), 10])
-        cylinder(d = 3, h = 5);
+        cylinder(d = 3, h = 10);
 
     // fan duct
     translate([1, 1, 0])
