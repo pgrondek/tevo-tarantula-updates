@@ -18,6 +18,7 @@ module base() {
         big_holes();
         small_holes();
         belt_holes();
+        endstop_holes();
     }
 }
 
@@ -54,22 +55,20 @@ module belt_holes() {
 }
 
 module mount() {
-    translate([(width - 30) / 2, 0]) {
-        //        cube([30,thickness,30]);
-
+    translate([(width - 35) / 2, 0]) {
         rotate([90, 0, 0]) {
             difference() {
                 union() {
-                    block_with_fillet(30, 30, thickness, 10);
-                    cube([30, 10, thickness]);
+                    block_with_fillet(35, 30, thickness, 10);
+                    cube([35, 10, thickness]);
                 }
 
                 union() {
-                    translate([2, 20, 10])
+                    translate([2.5+ 2, 20, 10])
                         rotate([180, 0, 0])
                             screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon");
 
-                    translate([25, 20, 10])
+                    translate([2.5+25, 20, 10])
                         rotate([180, 0, 0])
                             screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon");
                 }
@@ -91,4 +90,13 @@ module screw_mount(length, nut_size, screw_size, nut = "none") {
                 cube([nut_size, nut_size, 3]);
         }
     }
+}
+
+module endstop_holes() {
+    diameter = 2;
+    translate([width - (diameter / 2 + 3), diameter / 2 + 16, - 0.1])
+        cylinder(d = diameter, h = thickness * 1.1);
+    
+    translate([width - (diameter / 2 + 3), diameter / 2 + 16 +6, - 0.1])
+        cylinder(d = diameter, h = thickness * 1.1);
 }
