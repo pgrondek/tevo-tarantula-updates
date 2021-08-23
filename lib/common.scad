@@ -8,7 +8,11 @@ module screw_mount(length, nut_size, screw_size, nut = "none") {
         } else if (nut == "square") {
             translate([- nut_size / 2, - nut_size / 2, length - 3])
                 cube([nut_size, nut_size, 3]);
+        } if (nut == "square+") {
+            translate([- nut_size / 2, - nut_size / 2, length - 3])
+                cube([nut_size+100, nut_size, 3]);
         }
+        
     }
 }
 
