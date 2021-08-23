@@ -115,8 +115,9 @@ module screw_mounts() {
 }
 
 module screw_cover_mounts() {
-    screw_distance = 24;
+    screw_distance = 27;
     screw_size = 3;
+    length = 18;
 
     distance_from_edge = (width - screw_distance) / 2;
 
@@ -125,14 +126,14 @@ module screw_cover_mounts() {
         rotate([90, 0, 0]) {
             translate([screw_size, screw_size, 0])
                 rotate([0, 0, 180])
-                    screw_mount(length = 17, nut_size = 6, screw_size = screw_size, nut = "square+");
+                    screw_mount(length = length, nut_size = 6, screw_size = screw_size, nut = "square+");
             translate([1.5, 1.5, - 20])
                 cylinder(d = 6, h = 20);
         }
 
     translate([width - distance_from_edge - screw_size, 24, 29])
         rotate([90, 0, 0]) {
-            screw_mount(length = 17, nut_size = 6, screw_size = screw_size, nut = "square+");
+            screw_mount(length = length, nut_size = 6, screw_size = screw_size, nut = "square+");
             translate([1.5, 1.5, - 20])
                 cylinder(d = 6, h = 20);
         }
