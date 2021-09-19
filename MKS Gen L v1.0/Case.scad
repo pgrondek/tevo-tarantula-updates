@@ -22,10 +22,19 @@ $fn = 100;
 bottom_part();
 
 module bottom_part() {
-    union() {
-        base();
-        walls();
-        screw_mounts();
+    difference() {
+        union() {
+            base();
+            walls();
+            screw_mounts();
+        }
+        grill = 33;
+        for (i = [0 : 15]) {
+            translate([40 + (6 * i), spacing_y + 5, - thickness * 0.5])
+                grill(grill);
+            translate([40 + (6 * i), depth - grill - spacing_y + 5, - thickness * 0.5])
+                grill(grill);
+        }
     }
 }
 
@@ -50,9 +59,14 @@ module top_part() {
             screw_cutoff();
 
         // grill
-        for (i = [0 : 5])
-        translate([40 + (6 * i), depth / 2.2, height - thickness * 1.5])
-            grill();
+        grill = 33;
+        for (i = [0 : 15]) {
+            translate([40 + (6 * i), spacing_y + 5, height - thickness * 1.5])
+                grill(grill);
+            translate([40 + (6 * i), depth - grill - spacing_y + 5, height - thickness * 1.5])
+                grill(grill);
+        }
+
     }
 }
 
@@ -119,24 +133,24 @@ module walls() {
             translate([spacing_bottom + 17, - spacing * 1.5, 5])
                 cube([12, spacing * 2, 11]);
         }
-        
-        // cable holes
-        d= 25;
-        y = depth + 2 * spacing_y;
-        
-        translate([-thickness*1.5,y/2,height/2]) 
-        rotate([0,90,0])
-            translate([0,0,0])
-                cylinder(h = 20, d = d);
 
-        holes_spacing = spacing_top+spacing_bottom + 0.1;
-        
+        // cable holes
+        d = 25;
+        y = depth + 2 * spacing_y;
+
+        translate([- thickness * 1.5, y / 2, height / 2])
+            rotate([0, 90, 0])
+                translate([0, 0, 0])
+                    cylinder(h = 20, d = d);
+
+        holes_spacing = spacing_top + spacing_bottom + 0.1;
+
         // holes for mounts
-        translate([30, depth + thickness + spacing *2.1, 15])
+        translate([30, depth + thickness + spacing * 2.1, 15])
             rotate([90, 0, 0])
                 cylinder(h = thickness * 2, d = mount_screw);
-        
-        translate([width + holes_spacing - 30, depth + thickness + spacing *2.1, 15])
+
+        translate([width + holes_spacing - 30, depth + thickness + spacing * 2.1, 15])
             rotate([90, 0, 0])
                 cylinder(h = thickness * 2, d = mount_screw);
     }
@@ -171,11 +185,11 @@ module screw_cutoff() {
         cylinder(h = 2, d = 3);
 }
 
-module grill() {
+module grill(length = 30) {
     d = 3;
     hull() {
         cylinder(h = thickness * 2, d = d);
-        translate([0, 30, 0])
+        translate([0, length, 0])
             cylinder(h = thickness * 2, d = d);
     }
 }
