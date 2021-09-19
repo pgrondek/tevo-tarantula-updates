@@ -1,10 +1,14 @@
 // MKS Gen L v1.0
 width = 110;
 depth = 84;
-height = 25;
+height = 45;
 thickness = 3;
 mount_peg = 3;
-spacing = 10;
+spacing_y = 5;
+spacing = spacing_y;
+spacing_bottom = 30;
+spacing_top = 10;
+mount_screw = 4.5;
 
 peg_up = 3;
 peg_bottom = 8;
@@ -14,7 +18,7 @@ screw_size = height - thickness; // 10;
 // 
 $fn = 100;
 
-top_part();
+//top_part();
 bottom_part();
 
 module bottom_part() {
@@ -26,8 +30,8 @@ module bottom_part() {
 }
 
 module top_part() {
-    x = width + 2 * spacing;
-    y = depth + 2 * spacing;
+    x = width + spacing_top + spacing_bottom;
+    y = depth + 2 * spacing_y;
 
     d = (peg_up + 2) / 2 + 2;
     h = height - thickness + 2;
@@ -49,17 +53,13 @@ module top_part() {
         for (i = [0 : 5])
         translate([40 + (6 * i), depth / 2.2, height - thickness * 1.5])
             grill();
-        
-        // part cutoff
-        translate([10,18,height-thickness *1.5])
-            cube([8,24, thickness *2]);
     }
 }
 
 module screw_mounts() {
     d = (peg_up) + 1;
-    x = width + 2 * spacing - 4;
-    y = depth + 2 * spacing - 4;
+    x = width + spacing_top + spacing_bottom - 4;
+    y = depth + 2 * spacing_y - 4;
 
     h = 0; //height - (screw_size + thickness);
 
@@ -96,17 +96,17 @@ module screw_mount() {
 
 module base() {
     d1 = mount_peg;
-    x = width + 2 * spacing;
+    x = width + spacing_top + spacing_bottom;
     y = depth + 2 * spacing;
 
     cube([x, y, thickness]);
-    translate([4 + spacing, 4 + spacing, thickness])
+    translate([4 + spacing_bottom, 4 + spacing, thickness])
         peg(h = thickness);
-    translate([x - (4 + spacing), 4 + spacing, thickness])
+    translate([x - (4 + spacing_top), 4 + spacing, thickness])
         peg(h = thickness);
-    translate([x - (4 + spacing), y - (4 + spacing), thickness])
+    translate([x - (4 + spacing_top), y - (4 + spacing), thickness])
         peg(h = thickness);
-    translate([(4 + spacing), y - (4 + spacing), thickness])
+    translate([(4 + spacing_bottom), y - (4 + spacing), thickness])
         peg(h = thickness);
 }
 
@@ -114,35 +114,36 @@ module walls() {
     difference() {
         walls_basic();
 
-        // power ports
-        translate([0, spacing, thickness + pcb_thickness]) {
-            translate([- spacing * 1.5, 9, 5])
-                cube([spacing * 2, 10.5, 13]);
-            translate([- spacing * 1.5, 21, 5])
-                cube([spacing * 2, 10.5, 13]);
-            translate([- spacing * 1.5, 33, 5])
-                cube([spacing * 2, 21, 6]);
-        }
-
         // usb
         translate([spacing, 0, thickness + pcb_thickness]) {
-            translate([21, - spacing * 1.5, 5])
+            translate([spacing_bottom + 17, - spacing * 1.5, 5])
                 cube([12, spacing * 2, 11]);
         }
+        
+        // cable holes
+        d= 25;
+        y = depth + 2 * spacing_y;
+        
+        translate([-thickness*1.5,y/2,height/2]) 
+        rotate([0,90,0])
+            translate([0,0,0])
+                cylinder(h = 20, d = d);
 
+        holes_spacing = spacing_top+spacing_bottom + 0.1;
+        
         // holes for mounts
         translate([30, depth + thickness + spacing *2.1, 15])
             rotate([90, 0, 0])
-                cylinder(h = thickness * 2, d = 3.5);
+                cylinder(h = thickness * 2, d = mount_screw);
         
-        translate([width + spacing *2 - 30, depth + thickness + spacing *2.1, 15])
+        translate([width + holes_spacing - 30, depth + thickness + spacing *2.1, 15])
             rotate([90, 0, 0])
-                cylinder(h = thickness * 2, d = 3.5);
+                cylinder(h = thickness * 2, d = mount_screw);
     }
 }
 
 module walls_basic() {
-    x = width + 2 * spacing;
+    x = width + spacing_top + spacing_bottom;
     y = depth + 2 * spacing;
 
     translate([0, - thickness, 0])
