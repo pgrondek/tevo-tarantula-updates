@@ -130,8 +130,8 @@ module walls() {
 
         // usb
         translate([spacing, 0, thickness + pcb_thickness]) {
-            translate([spacing_bottom + 17, - spacing * 1.5, 5])
-                cube([12, spacing * 2, 11]);
+            translate([spacing_bottom + 15, - spacing * 1.5, 1.5])
+                cube([15, spacing * 2, 15]);
         }
 
         // cable holes
