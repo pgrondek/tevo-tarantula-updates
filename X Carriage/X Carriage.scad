@@ -1,4 +1,5 @@
 include <../lib/common.scad>;
+include <../lib/examples.scad>;
 
 thickness = 6;
 width = 65;
@@ -20,6 +21,7 @@ module base() {
         small_holes();
         belt_holes();
         endstop_holes();
+        wheel_clerance();
     }
 }
 
@@ -30,6 +32,17 @@ module big_holes() {
 
     translate([width - (5 + diameter / 2), diameter / 2 + 7, - 0.1])
         cylinder(d = diameter, h = thickness * 1.1);
+
+}
+
+module wheel_clerance() {
+    diameter = 30;
+    diameter2 = 7;
+    translate([diameter2 / 2 + 5, diameter2 / 2 + 7, thickness])
+        cylinder(d = diameter, h = thickness * 10);
+
+    translate([width - (5 + diameter2 / 2), diameter2 / 2 + 7, thickness])
+        cylinder(d = diameter, h = thickness * 10);
 
 }
 
@@ -57,39 +70,29 @@ module belt_holes() {
 
 module mount() {
     translate([(width - 35) / 2, 0]) {
+
         rotate([90, 0, 0]) {
             difference() {
                 union() {
                     block_with_fillet(35, 30, thickness, 10);
                     cube([35, 10, thickness]);
+                    rotate([180, 0, 0])
+                        translate([0, - 20, 0])
+                            prism(35, 20, 23);
                 }
 
                 union() {
                     translate([2.5 + 2, 20, 10])
                         rotate([180, 0, 0])
-                            screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon");
+                            screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon", nut_height = 30);
 
                     translate([2.5 + 25, 20, 10])
                         rotate([180, 0, 0])
-                            screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon");
+                            screw_mount(length = 10, nut_size = 6, screw_size = 3, nut = "hexagon", nut_height = 30);
                 }
             }
         }
 
-    }
-}
-
-module screw_mount(length, nut_size, screw_size, nut = "none") {
-    translate([screw_size / 2, screw_size / 2, 0]) {
-        cylinder(d = screw_size + 3, h = screw_size);
-        cylinder(d = screw_size, h = length);
-        if (nut == "hexagon") {
-            translate([0, 0, length - 3])
-                cylinder(d = nut_size, h = 3, $fn = 6);
-        } else if (nut == "square") {
-            translate([- nut_size / 2, - nut_size / 2, length - 3])
-                cube([nut_size, nut_size, 3]);
-        }
     }
 }
 
