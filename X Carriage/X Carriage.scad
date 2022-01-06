@@ -1,7 +1,7 @@
 include <../lib/common.scad>;
 
 thickness = 6;
-width = 75;
+width = 65;
 depth = 62;
 height = 50;
 
