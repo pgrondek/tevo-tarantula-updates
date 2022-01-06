@@ -3,7 +3,6 @@ include <../lib/common.scad>;
 thickness = 6;
 width = 65;
 depth = 62;
-height = 50;
 
 $fn = 100;
 
@@ -12,9 +11,10 @@ base();
 module base() {
     difference() {
         union() {
+            translate([0, - thickness * 2, 0])
+                block_with_fillet(width, depth + thickness * 2, thickness, 10);
             translate([0, - thickness, 0])
-                block_with_fillet(width, depth + thickness, thickness, 10);
-            mount();
+                mount();
         }
         big_holes();
         small_holes();
