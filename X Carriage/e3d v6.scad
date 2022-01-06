@@ -119,7 +119,7 @@ module screw_cover_mounts() {
     screw_size = 3;
     length = 18;
 
-    distance_from_edge = (width - screw_distance) / 2;
+    distance_from_edge = (width - (screw_distance + screw_size)) / 2;
 
     // cover mount
     translate([distance_from_edge, 24, 29])
@@ -143,7 +143,7 @@ module screw_x_carriage_mount() {
     screw_distance = 23;
     screw_size = 3;
 
-    distance_from_edge = (width - screw_distance) / 2;
+    distance_from_edge = (width - (screw_distance + screw_size)) / 2;
 
     // X carriage mount
     translate([distance_from_edge, 15, 35])
