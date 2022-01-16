@@ -18,8 +18,8 @@ screw_size = height - thickness; // 10;
 // 
 $fn = 100;
 
-//top_part();
-bottom_part();
+top_part();
+//bottom_part();
 
 module bottom_part() {
     difference() {
@@ -60,14 +60,35 @@ module top_part() {
 
         // grill
         grill = 33;
-        for (i = [0 : 15]) {
-            translate([40 + (6 * i), spacing_y + 5, height - thickness * 1.5])
+        for (i = [0 : 12]) {
+            translate([60 + (6 * i), spacing_y + 5, height - thickness * 1.5])
                 grill(grill);
-            translate([40 + (6 * i), depth - grill - spacing_y + 5, height - thickness * 1.5])
+            translate([60 + (6 * i), depth - grill - spacing_y + 5, height - thickness * 1.5])
                 grill(grill);
         }
-
+        
+        translate([35, (depth+10)/2, height - thickness])
+            fan();
     }
+}
+
+module fan() {
+    
+    d=2.7;
+    v = [ 
+     [ -16, -16, 0],
+     [ -16, 16, 0],
+     [ 16, 16, 0],
+     [ 16, -16, 0]
+    ];
+
+
+    for ( i = v ) {
+        translate(i)
+            cylinder(d=d,h=10, center=true);
+    }
+    
+    cylinder(d=39,h=10, center=true);
 }
 
 module screw_mounts() {
