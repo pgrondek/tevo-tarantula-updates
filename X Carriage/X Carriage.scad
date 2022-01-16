@@ -2,7 +2,7 @@ include <../lib/common.scad>;
 include <../lib/examples.scad>;
 
 thickness = 6;
-width = 65;
+width = 70;
 depth = 62;
 
 $fn = 100;
